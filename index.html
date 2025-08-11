@@ -19,6 +19,7 @@
             button {
                 background-color: #333;
                 color: white;
+                border-radius: 5px;
             }
             body.light-mode button {
                 background-color: #eee;
@@ -55,57 +56,36 @@
         
         <script>
             let isLightMode = false; // Track current mode
+            let currentColor = "white"; // Track chosen color
 
-            function changeRed() {
+            function setExampleColor(color, text) {
                 var element = document.getElementById("Example");
-                element.style.color = "red";
-                element.innerHTML = "Thanks.";
+                element.style.color = color;
+                element.innerHTML = text;
+                currentColor = color;
             }
-            function changeBlue() {
-                var element = document.getElementById("Example");
-                element.style.color = "blue";
-                element.innerHTML = "Thank you so much.";
-            }
-            function changeGreen() {
-                var element = document.getElementById("Example");
-                element.style.color = "green";
-                element.innerHTML = "Good.";
-            }
-            function changeYellow() {
-                var element = document.getElementById("Example");
-                element.style.color = "yellow";
-                element.innerHTML = "No more 😄.";
-            }
-            function changeOrange() {
-                var element = document.getElementById("Example");
-                element.style.color = "orange";
-                element.innerHTML = "OK good.";
-            }
-            function changePurple() {
-                var element = document.getElementById("Example");
-                element.style.color = "purple";
-                element.innerHTML = "Yes?";
-            }
-            function changePink() {
-                var element = document.getElementById("Example");
-                element.style.color = "pink";
-                element.innerHTML = "Now change me to white.";
-            }
+
+            function changeRed()    { setExampleColor("red",    "Thanks."); }
+            function changeBlue()   { setExampleColor("blue",   "Thank you so much."); }
+            function changeGreen()  { setExampleColor("green",  "Good."); }
+            function changeYellow() { setExampleColor("yellow", "No more 😄."); }
+            function changeOrange() { setExampleColor("orange", "OK good."); }
+            function changePurple() { setExampleColor("purple", "Yes?"); }
+            function changePink()   { setExampleColor("pink",   "Now change me to white."); }
+
             function changeBlack() {
                 var element = document.getElementById("Example");
                 var blackBtn = document.getElementById("blackBtn");
-                // Remove previous "Go back to normal" button if it exists
                 var oldDiv = document.getElementById("paragraph");
                 if (oldDiv) oldDiv.remove();
 
                 if (isLightMode) {
-                    element.style.color = "black";
+                    setExampleColor("black", "Restart button is here. You can click it to change my text to normal!");
                     blackBtn.innerHTML = "Click Me to get black ink ⚫";
                 } else {
-                    element.style.color = "white";
+                    setExampleColor("white", "Restart button is here. You can click it to change my text to normal!");
                     blackBtn.innerHTML = "Click Me to get white ink ⚪";
                 }
-                element.innerHTML = "Restart button is here. You can click it to change my text to normal!";
 
                 let div = document.createElement('div');
                 div.id = "paragraph";
@@ -113,9 +93,11 @@
                 div.innerHTML = "<br><br><button onclick='Normal()'>Go back to normal</button>";
                 document.body.append(div);
             }
+
             function Normal() {
                 location.reload();
             }
+
             function changeAll() {
                 var body = document.body;
                 var lurkBtn = document.getElementById("lurk");
@@ -126,16 +108,26 @@
                     body.classList.add("light-mode");
                     body.classList.remove("dark-mode");
                     lurkBtn.innerHTML = "Invert or change the color of everything (dark mode)";
-                    // If Example is white or any other color, set to black for visibility
-                    example.style.color = "black";
                     blackBtn.innerHTML = "Click Me to get black ink ⚫";
+                    // If current color is white or not set, use black for visibility
+                    if (currentColor === "white" || currentColor === "" || currentColor === undefined) {
+                        example.style.color = "black";
+                        currentColor = "black";
+                    } else {
+                        example.style.color = currentColor;
+                    }
                 } else {
                     body.classList.add("dark-mode");
                     body.classList.remove("light-mode");
                     lurkBtn.innerHTML = "Invert or change the color of everything (light mode)";
-                    // If Example is black or any other color, set to white for visibility
-                    example.style.color = "white";
                     blackBtn.innerHTML = "Click Me to get white ink ⚪";
+                    // If current color is black or not set, use white for visibility
+                    if (currentColor === "black" || currentColor === "" || currentColor === undefined) {
+                        example.style.color = "white";
+                        currentColor = "white";
+                    } else {
+                        example.style.color = currentColor;
+                    }
                 }
             }
         </script>
