@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Change text</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+            body {
+                font-family: "Poppins", "sans-serif";
+                padding: 10px;
+            }
+            body.dark-mode, body:not(.light-mode) {
+                background-color: black;
+                color: white;
+            }
+            body.light-mode {
+                background-color: white;
+                color: black;
+            }
+            button {
+                background-color: #333;
+                color: white;
+            }
+            body.light-mode button {
+                background-color: #eee;
+                color: black;
+            }
+            #Example {
+                border: 1px solid #CCC;
+                padding: 20px;
+                width: 400px;
+            }
+        </style>
+    </head>
+    <body class="dark-mode">
+        <h2>Change font color of HTML element in JavaScript!</h2>
+        <div id="Example">Hello World! Change the color of me please.</div>
+        <br>
+        <button onclick="changeRed()">Click Me to get red ink 🔴</button>
+        <br><br>
+        <button onclick="changeGreen()">Click Me to get green ink 🟢</button>
+        <br><br>
+        <button onclick="changeBlue()">Click Me to get blue ink 🔵</button>
+        <br><br>
+        <button onclick="changeYellow()">Click Me to get yellow ink 🟡</button>
+        <br><br>
+        <button onclick="changeOrange()">Click Me to get orange ink 🟠</button>
+        <br><br>
+        <button onclick="changePurple()">Click Me to get purple ink 🟣</button>
+        <br><br>
+        <button onclick="changePink()">Click Me to get pink ink ⚪️</button>
+        <br><br>
+        <button id="blackBtn" onclick="changeBlack()">Click Me to get white ink ⚪</button>
+        <br><br>
+        <button id="lurk" onclick="changeAll()">Invert or change the color of everything (light mode)</button>
+        
+        <script>
+            let isLightMode = false; // Track current mode
+
+            function changeRed() {
+                var element = document.getElementById("Example");
+                element.style.color = "red";
+                element.innerHTML = "Thanks.";
+            }
+            function changeBlue() {
+                var element = document.getElementById("Example");
+                element.style.color = "blue";
+                element.innerHTML = "Thank you so much.";
+            }
+            function changeGreen() {
+                var element = document.getElementById("Example");
+                element.style.color = "green";
+                element.innerHTML = "Good.";
+            }
+            function changeYellow() {
+                var element = document.getElementById("Example");
+                element.style.color = "yellow";
+                element.innerHTML = "No more 😄.";
+            }
+            function changeOrange() {
+                var element = document.getElementById("Example");
+                element.style.color = "orange";
+                element.innerHTML = "OK good.";
+            }
+            function changePurple() {
+                var element = document.getElementById("Example");
+                element.style.color = "purple";
+                element.innerHTML = "Yes?";
+            }
+            function changePink() {
+                var element = document.getElementById("Example");
+                element.style.color = "pink";
+                element.innerHTML = "Now change me to white.";
+            }
+            function changeBlack() {
+                var element = document.getElementById("Example");
+                var blackBtn = document.getElementById("blackBtn");
+                // Remove previous "Go back to normal" button if it exists
+                var oldDiv = document.getElementById("paragraph");
+                if (oldDiv) oldDiv.remove();
+
+                if (isLightMode) {
+                    element.style.color = "black";
+                    blackBtn.innerHTML = "Click Me to get black ink ⚫";
+                } else {
+                    element.style.color = "white";
+                    blackBtn.innerHTML = "Click Me to get white ink ⚪";
+                }
+                element.innerHTML = "Restart button is here. You can click it to change my text to normal!";
+
+                let div = document.createElement('div');
+                div.id = "paragraph";
+                div.className = "alert";
+                div.innerHTML = "<br><br><button onclick='Normal()'>Go back to normal</button>";
+                document.body.append(div);
+            }
+            function Normal() {
+                location.reload();
+            }
+            function changeAll() {
+                var body = document.body;
+                var lurkBtn = document.getElementById("lurk");
+                var blackBtn = document.getElementById("blackBtn");
+                var example = document.getElementById("Example");
+                isLightMode = !isLightMode;
+                if (isLightMode) {
+                    body.classList.add("light-mode");
+                    body.classList.remove("dark-mode");
+                    lurkBtn.innerHTML = "Invert or change the color of everything (dark mode)";
+                    // If Example is white or any other color, set to black for visibility
+                    example.style.color = "black";
+                    blackBtn.innerHTML = "Click Me to get black ink ⚫";
+                } else {
+                    body.classList.add("dark-mode");
+                    body.classList.remove("light-mode");
+                    lurkBtn.innerHTML = "Invert or change the color of everything (light mode)";
+                    // If Example is black or any other color, set to white for visibility
+                    example.style.color = "white";
+                    blackBtn.innerHTML = "Click Me to get white ink ⚪";
+                }
+            }
+        </script>
+    </body>
+</html>
